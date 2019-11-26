@@ -1,0 +1,7 @@
+[Unit]
+Description=flatpak sample authenticator
+
+[Service]
+BusName=org.flatpak.Authenticator.Sample
+ExecStart=@libexecdir@/flatpak-sample-authenticator
+Type=dbus

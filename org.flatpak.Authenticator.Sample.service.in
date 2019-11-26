@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.flatpak.Authenticator.Sample
+Exec=@libexecdir@/flatpak-sample-authenticator
+SystemdService=flatpak-sample-authenticator.service

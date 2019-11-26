@@ -21,10 +21,10 @@
 #include "config.h"
 #include <locale.h>
 
+#include <json-glib/json-glib.h>
+
 #include "flatpak-authenticator-webflow.h"
 #include "flatpak-dbus-generated.h"
-#include "flatpak-utils-http-private.h"
-#include "flatpak-utils-private.h"
 
 FlatpakAuthenticator *authenticator;
 static GMainLoop *main_loop = NULL;
@@ -953,7 +953,7 @@ main (int    argc,
     flags |= G_BUS_NAME_OWNER_FLAGS_REPLACE;
 
   name_owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                  "org.flatpak.Authenticator",
+                                  "org.flatpak.Authenticator.Sample",
                                   flags,
                                   on_bus_acquired,
                                   on_name_acquired,

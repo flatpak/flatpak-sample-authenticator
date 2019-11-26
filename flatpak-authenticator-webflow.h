@@ -18,9 +18,7 @@
  *       Alexander Larsson <alexl@redhat.com>
  */
 
-#include "flatpak-auth-private.h"
-#include "flatpak-dbus-generated.h"
-#include <libsoup/soup.h>
+#include "auth-utils.h"
 
 typedef void (*WebflowCallback) (FlatpakAuthenticatorRequest *request,
                                  GHashTable *query,

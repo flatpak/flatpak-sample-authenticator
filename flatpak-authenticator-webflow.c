@@ -21,8 +21,6 @@
 #include "config.h"
 
 #include "flatpak-authenticator-webflow.h"
-#include "flatpak-utils-http-private.h"
-#include "flatpak-utils-private.h"
 #include <libsoup/soup.h>
 
 void
