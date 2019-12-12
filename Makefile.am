@@ -27,7 +27,7 @@ flatpak-dbus-generated.c: $(FLATPAK_INTERFACES_DIR)/org.freedesktop.Flatpak.Auth
 flatpak-dbus-generated.h: flatpak-dbus-generated.c
 
 flatpak_sample_authenticator_SOURCES = \
-	flatpak-authenticator.c		\
+	sample-authenticator.c		\
 	flatpak-authenticator-webflow.h	\
 	flatpak-authenticator-webflow.c	\
 	auth-utils.c			\
