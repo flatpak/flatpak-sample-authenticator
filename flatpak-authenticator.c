@@ -724,7 +724,10 @@ handle_request_ref_tokens (FlatpakAuthenticator *authenticator,
                            const gchar *arg_handle_token,
                            GVariant *arg_authenticator_options,
                            const gchar *arg_remote,
-                           GVariant *arg_refs)
+                           const gchar *arg_remote_uri,
+                           GVariant *arg_refs,
+                           GVariant *arg_options,
+                           const gchar *arg_parent_window)
 {
   g_autofree char *request_path = NULL;
   g_autoptr(GError) error = NULL;
@@ -779,9 +782,11 @@ handle_request_ref_tokens (FlatpakAuthenticator *authenticator,
   data->refs = g_new0 (char *, n_refs + 1);
   for (i = 0; i < n_refs; i++)
     {
-      const char *ref;
+      const char *ref, *commit;
+      g_autoptr(GVariant) ref_data = NULL;
       gint32 token_type;
-      g_variant_get_child (arg_refs, i, "(&si)", &ref, &token_type);
+
+      g_variant_get_child (arg_refs, i, "(&s&si@a{sv})", &ref, &commit, &token_type, &ref_data);
       data->refs[i] = g_strdup (ref);
       data->token_types[i] = token_type;
     }

@@ -82,14 +82,23 @@ flatpak_auth_request_emit_response (FlatpakAuthenticatorRequest *request,
 void
 flatpak_auth_request_emit_webflow (FlatpakAuthenticatorRequest *request,
                                    const gchar *destination_bus_name,
-                                   const char *arg_uri)
+                                   const char *arg_uri,
+                                   GVariant *options)
 {
   FlatpakAuthenticatorRequestSkeleton *skeleton = FLATPAK_AUTHENTICATOR_REQUEST_SKELETON (request);
   GList      *connections, *l;
   g_autoptr(GVariant) signal_variant = NULL;
+  g_autoptr(GVariant) default_options = NULL;
+
+  if (options == NULL)
+    {
+      default_options = g_variant_ref_sink (g_variant_new_array (G_VARIANT_TYPE ("{sv}"), NULL, 0));
+      options = default_options;
+    }
+
   connections = g_dbus_interface_skeleton_get_connections (G_DBUS_INTERFACE_SKELETON (skeleton));
 
-  signal_variant = g_variant_ref_sink (g_variant_new ("(s)", arg_uri));
+  signal_variant = g_variant_ref_sink (g_variant_new ("(s@a{sv})", arg_uri, options));
   for (l = connections; l != NULL; l = l->next)
     {
       GDBusConnection *connection = l->data;
@@ -103,14 +112,23 @@ flatpak_auth_request_emit_webflow (FlatpakAuthenticatorRequest *request,
 
 void
 flatpak_auth_request_emit_webflow_done (FlatpakAuthenticatorRequest *request,
-                                        const gchar *destination_bus_name)
+                                        const gchar *destination_bus_name,
+                                        GVariant *options)
 {
   FlatpakAuthenticatorRequestSkeleton *skeleton = FLATPAK_AUTHENTICATOR_REQUEST_SKELETON (request);
   GList      *connections, *l;
   g_autoptr(GVariant) signal_variant = NULL;
+  g_autoptr(GVariant) default_options = NULL;
+
+  if (options == NULL)
+    {
+      default_options = g_variant_ref_sink (g_variant_new_array (G_VARIANT_TYPE ("{sv}"), NULL, 0));
+      options = default_options;
+    }
+
   connections = g_dbus_interface_skeleton_get_connections (G_DBUS_INTERFACE_SKELETON (skeleton));
 
-  signal_variant = g_variant_ref_sink (g_variant_new ("()"));
+  signal_variant = g_variant_ref_sink (g_variant_new ("(@a{sv})", options));
   for (l = connections; l != NULL; l = l->next)
     {
       GDBusConnection *connection = l->data;

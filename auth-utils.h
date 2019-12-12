@@ -81,9 +81,11 @@ void                         flatpak_auth_request_emit_response     (FlatpakAuth
                                                                      GVariant                     *arg_results);
 void                         flatpak_auth_request_emit_webflow      (FlatpakAuthenticatorRequest  *request,
                                                                      const gchar                  *destination_bus_name,
-                                                                     const char                   *arg_uri);
+                                                                     const char                   *arg_uri,
+                                                                     GVariant                     *options);
 void                         flatpak_auth_request_emit_webflow_done (FlatpakAuthenticatorRequest  *request,
-                                                                     const gchar                  *destination_bus_name);
+                                                                     const gchar                  *destination_bus_name,
+                                                                     GVariant                     *options);
 
 
 

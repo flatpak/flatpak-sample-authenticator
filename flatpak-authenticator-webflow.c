@@ -82,7 +82,7 @@ webflow_finished_cb (gpointer user_data)
 
   if (data->started_webflow)
     {
-      flatpak_auth_request_emit_webflow_done (data->request, data->sender);
+      flatpak_auth_request_emit_webflow_done (data->request, data->sender, NULL);
       data->started_webflow = FALSE;
     }
 
@@ -218,7 +218,7 @@ webflow_begin (FlatpakAuthenticatorRequest *request, const char *sender, SoupURI
   g_debug ("Starting webflow [%s]", webflow_uri_s);
 
   data->started_webflow = TRUE;
-  flatpak_auth_request_emit_webflow (request, data->sender, webflow_uri_s);
+  flatpak_auth_request_emit_webflow (request, data->sender, webflow_uri_s, NULL);
 
   return g_steal_pointer (&data);
 }
