@@ -8,10 +8,8 @@ libexec_PROGRAMS = \
 		-e "s|\@extraargs\@||" $< > $@
 
 dbus_servicedir = $(DBUS_SERVICE_DIR)
-service_in_files = flatpak-sample-authenticator.service.in
-systemduserunit_DATA = flatpak-sample-authenticator.service
 
-service_in_files += org.flatpak.Authenticator.Sample.service.in
+service_in_files = org.flatpak.Authenticator.Sample.service.in
 dbus_service_DATA = org.flatpak.Authenticator.Sample.service
 
 dbus_built_sources = flatpak-dbus-generated.c flatpak-dbus-generated.h
