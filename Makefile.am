@@ -9,7 +9,7 @@ libexec_PROGRAMS = \
 
 dbus_servicedir = $(DBUS_SERVICE_DIR)
 service_in_files = flatpak-sample-authenticator.service.in
-systemduserunit_DATA = flatpak-authenticator.service
+systemduserunit_DATA = flatpak-sample-authenticator.service
 
 service_in_files += org.flatpak.Authenticator.Sample.service.in
 dbus_service_DATA = org.flatpak.Authenticator.Sample.service
