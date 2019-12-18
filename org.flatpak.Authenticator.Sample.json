@@ -1,0 +1,29 @@
+{
+    "app-id": "org.flatpak.Authenticator.Sample",
+    "default-branch": "autoinstall",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "19.08",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "/app/libexec/flatpak-sample-authenticator",
+    "finish-args": [ "--share=network" ],
+    "modules": [
+        {
+            "name": "authenticator-sample",
+            "buildsystem": "autotools",
+            "config-opts": [ "--with-flatpak-interfaces-dir=./ifaces" ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/flatpak/flatpak-sample-authenticator/",
+                    "branch": "master"
+                },
+                {
+                    "type": "file",
+                    "dest": "ifaces",
+                    "url": "https://raw.githubusercontent.com/flatpak/flatpak/4106fc46777cc859cc0d6fbc66883fad22793b16/data/org.freedesktop.Flatpak.Authenticator.xml",
+                    "sha256": "1daa8eb835f63f570ad9817f863370d012933780bcae40575ca28808139493a8"
+                }
+            ]
+        }
+    ]
+}
