@@ -427,9 +427,9 @@ request_ref_tokens__success (FlatpakAuthenticatorRequest *request)
   g_variant_builder_add (&results, "{sv}", "tokens", g_variant_builder_end (&tokens));
 
   g_debug ("emiting OK response");
-  flatpak_auth_request_emit_response (request, data->sender,
-                                      FLATPAK_AUTH_RESPONSE_OK,
-                                      g_variant_builder_end (&results));
+  flatpak_authenticator_request_emit_response (request,
+                                               FLATPAK_AUTH_RESPONSE_OK,
+                                               g_variant_builder_end (&results));
 }
 
 static SoupMessage *
@@ -472,9 +472,9 @@ verify_api_call_json_response (FlatpakAuthenticatorRequest *request,
       g_autofree char *err_msg = g_strdup_printf ("API Call failed, service returned status %d", msg->status_code);
       g_variant_builder_init (&results, G_VARIANT_TYPE ("a{sv}"));
       g_variant_builder_add (&results, "{sv}", "error-message", g_variant_new_string (err_msg));
-      flatpak_auth_request_emit_response (request, sender,
-                                          FLATPAK_AUTH_RESPONSE_ERROR,
-                                          g_variant_builder_end (&results));
+      flatpak_authenticator_request_emit_response (request,
+                                                   FLATPAK_AUTH_RESPONSE_ERROR,
+                                                   g_variant_builder_end (&results));
       return NULL;
     }
 
@@ -483,9 +483,9 @@ verify_api_call_json_response (FlatpakAuthenticatorRequest *request,
     {
       g_variant_builder_init (&results, G_VARIANT_TYPE ("a{sv}"));
       g_variant_builder_add (&results, "{sv}", "error-message", g_variant_new_string ("Invalid json in service reply"));
-      flatpak_auth_request_emit_response (request, sender,
-                                          FLATPAK_AUTH_RESPONSE_ERROR,
-                                          g_variant_builder_end (&results));
+      flatpak_authenticator_request_emit_response (request,
+                                                   FLATPAK_AUTH_RESPONSE_ERROR,
+                                                   g_variant_builder_end (&results));
       return NULL;
     }
 

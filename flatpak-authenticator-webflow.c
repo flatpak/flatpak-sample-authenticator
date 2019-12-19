@@ -75,6 +75,7 @@ static gboolean
 webflow_finished_cb (gpointer user_data)
 {
   g_autoptr(WebflowData) data = webflow_data_ref (user_data); /* Keep alive during callback */
+  g_autoptr(GVariant) options = g_variant_ref_sink (g_variant_new_array (G_VARIANT_TYPE ("{sv}"), NULL, 0));
 
   /* Ensure no more callbacks, and circular refs to WebflowData */
   if (data->server)
@@ -82,7 +83,7 @@ webflow_finished_cb (gpointer user_data)
 
   if (data->started_webflow)
     {
-      flatpak_auth_request_emit_webflow_done (data->request, data->sender, NULL);
+      flatpak_authenticator_request_emit_webflow_done (data->request, options);
       data->started_webflow = FALSE;
     }
 
@@ -184,6 +185,7 @@ webflow_begin (FlatpakAuthenticatorRequest *request, const char *sender, SoupURI
   g_autoptr(GError) error = NULL;
   g_autoptr(GSList) listening_uris = NULL;
   g_autoptr(WebflowData) data = NULL;
+  g_autoptr(GVariant) options = g_variant_ref_sink (g_variant_new_array (G_VARIANT_TYPE ("{sv}"), NULL, 0));
 
   data = webflow_data_new (request, sender, callback);
 
@@ -218,7 +220,8 @@ webflow_begin (FlatpakAuthenticatorRequest *request, const char *sender, SoupURI
   g_debug ("Starting webflow [%s]", webflow_uri_s);
 
   data->started_webflow = TRUE;
-  flatpak_auth_request_emit_webflow (request, data->sender, webflow_uri_s, NULL);
+
+  flatpak_authenticator_request_emit_webflow (request, webflow_uri_s, options);
 
   return g_steal_pointer (&data);
 }
